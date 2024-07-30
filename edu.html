@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone - Jerl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        header {
+            background-color: #131921;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img {
+            width: 100px;
+        }
+
+        header .logo .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+
+        header .search-bar {
+            flex: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        header .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        header .search-bar button {
+            padding: 10px;
+            border: none;
+            background-color: #febd69;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        header .user-menu a {
+            margin-left: 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            background-color: #232f3e;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product button {
+            background-color: #febd69;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background-color: #f90;
+        }
+
+        .product.highlight {
+            background-color: #ffff99;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+        }
+
+        footer {
+            background-color: #232f3e;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+            <span class="logo-text">Jerl</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search">
+            <button onclick="searchProduct()">Search</button>
+        </div>
+        <div class="user-menu">
+            <a href="sign-in.html">Sign In</a>
+            <a href="cart.html">Cart (<span id="cartCount">0</span>)</a>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#" onclick="navigateTo('https://www.amazon.com/gp/bestsellers')">Best Sellers</a></li>
+            <li><a href="#" onclick="navigateTo('https://www.amazon.com/gp/help/customer/display.html')">Customer Service</a></li>
+            <li><a href="#" onclick="navigateTo('https://www.amazon.com/gp/new-releases')">New Releases</a></li>
+            <li><a href="#" onclick="navigateTo('https://www.amazon.com/gp/goldbox')">Today's Deals</a></li>
+            <li><a href="#" onclick="navigateTo('https://www.amazon.com/gp/gift-cards')">Gift Cards</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section class="product-grid">
+            <div class="product" onclick="showProductDetail('product1')">
+                <img src="img1.jpg" alt="Product 1">
+                <h3>Electactic Ice Maker</h3>
+                <p>Rs.10000</p>
+                <button onclick="addToCart('Electactic Ice Maker', 10000)">Add to Cart</button>
+            </div>
+            <div class="product" onclick="showProductDetail('product2')">
+                <img src="img2.jpeg" alt="Product 2">
+                <h3>Amazon Echo</h3>
+                <p>Rs.5000</p>
+                <button onclick="addToCart('Amazon Echo', 5000)">Add to Cart</button>
+            </div>
+            <div class="product" onclick="showProductDetail('product3')">
+                <img src="img3.jpeg" alt="Product 3">
+                <h3>Cleaning Solution</h3>
+                <p>Rs.890</p>
+                <button onclick="addToCart('Cleaning Solution', 890)">Add to Cart</button>
+            </div>
+            <!-- Add more products as needed -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Amazon Clone by Jerl. All rights reserved.</p>
+    </footer>
+
+    <!-- Product Detail Modal (hidden by default) -->
+    <div id="product1" class="product-detail">
+        <div class="product-detail-content">
+            <h2>Electactic Ice Maker</h2>
+            <p>Detailed description of Electactic Ice Maker...</p>
+            <button onclick="closeProductDetail()">Close</button>
+        </div>
+    </div>
+    <div id="product2" class="product-detail">
+        <div class="product-detail-content">
+            <h2>Amazon Echo</h2>
+            <p>Detailed description of Amazon Echo...</p>
+            <button onclick="closeProductDetail()">Close</button>
+        </div>
+    </div>
+    <div id="product3" class="product-detail">
+        <div class="product-detail-content">
+            <h2>Cleaning Solution</h2>
+            <p>Detailed description of Cleaning Solution...</p>
+            <button onclick="closeProductDetail()">Close</button>
+        </div>
+    </div>
+    <script>
+    let cartCount = 0;
+
+    function addToCart(productName, productPrice) {
+        cartCount++;
+        document.getElementById('cartCount').innerText = cartCount;
+        alert(productName + ' added to cart!');
+    }
+
+    function showCartAmount() {
+        const cartCount = document.getElementById('cartCount').innerText;
+        alert(`You have ${cartCount} items in your cart.`);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', searchProduct);
+
+    function searchProduct() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const products = document.querySelectorAll('.product');
+        let hasResults = false;
+
+        products.forEach(product => {
+            const productName = product.querySelector('h3').innerText.toLowerCase();
+            if (productName.includes(searchInput)) {
+                product.style.display = 'block';
+                product.classList.add('highlight');
+                hasResults = true;
+            } else {
+                product.style.display = 'none';
+                product.classList.remove('highlight');
+            }
+        });
+
+        // Display "No Results Found" message
+        const noResultsMessage = document.querySelector('.no-results');
+        if (!hasResults) {
+            if (!noResultsMessage) {
+                const message = document.createElement('p');
+                message.className = 'no-results';
+                message.innerText = 'No Results Found';
+                document.querySelector('main').appendChild(message);
+            }
+        } else {
+            if (noResultsMessage) {
+                noResultsMessage.remove();
+            }
+        }
+    }
+
+    function navigateTo(url) {
+        window.open(url, '_blank');
+    }
+
+    function showProductDetail(productId) {
+        document.querySelectorAll('.product-detail').forEach(detail => {
+            detail.classList.remove('active');
+        });
+        document.getElementById(productId).classList.add('active');
+    }
+
+    function closeProductDetail() {
+        document.querySelectorAll('.product-detail').forEach(detail => {
+            detail.classList.remove('active');
+        });
+    }
+</script>
+
+            // Display "No Results Found" message
+            const noResultsMessage = document.querySelector('.no-r
+</body>
+</html>
